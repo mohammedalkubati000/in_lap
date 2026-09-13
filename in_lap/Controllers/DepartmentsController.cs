@@ -4,27 +4,24 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace in_lap.Controllers
 {
-    public class EmployeesController : Controller
+    public class DepartmentsController : Controller
     {
 
-
-        //DI
+        //DI 
         private readonly AppDbContext _db;
-        public EmployeesController(AppDbContext db)
+        public DepartmentsController(AppDbContext db)
         {
             _db = db;
-
         }
-
 
 
         public ActionResult Index()
         {
             //Entity Framework Approach
-
-            IEnumerable<Employee> employees = _db.Employees.ToList();
-            return View(employees);
+            IEnumerable<Department> depts = _db.Departments.ToList();
+            return View(depts);
         }
+
         [HttpGet]
         public ActionResult Create()
         {
@@ -32,17 +29,16 @@ namespace in_lap.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Employee employee)
+        public ActionResult Create(Department department)
         {
-   
             if (ModelState.IsValid)
             {
-                _db.Employees.Add(employee);
+                _db.Departments.Add(department);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ModelState.AddModelError("", "Please fill all the required fields.");
-            return View(employee);
+            return View(department);
 
         }
 
@@ -53,7 +49,7 @@ namespace in_lap.Controllers
         [HttpGet]
         public ActionResult Edit(int Id)
         {
-            var dept = _db.Employees.Find(Id);
+            var dept = _db.Departments.Find(Id);
             if (dept == null)
             {
                 return NotFound();
@@ -63,18 +59,19 @@ namespace in_lap.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Employee employee)
+        public ActionResult Edit(Department department)
         {
             if (ModelState.IsValid)
             {
-                _db.Employees.Update(employee);
+                _db.Departments.Update(department);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ModelState.AddModelError("", "Please fill all the required fields.");
-            return View(employee);
+            return View(department);
 
         }
+
 
         //===============
         //Delete
@@ -82,56 +79,26 @@ namespace in_lap.Controllers
         [HttpGet]
         public ActionResult Delete(int Id)
         {
-            var emp = _db.Employees.Find(Id);
-            if (emp == null)
+            var dept = _db.Departments.Find(Id);
+            if (dept == null)
             {
                 return NotFound();
             }
-            return View(emp);
+
+            return View(dept);
         }
 
         [HttpPost]
-        public ActionResult Delete(Employee employee)
+        public ActionResult Delete(Department department)
         {
-            _db.Employees.Remove(employee);
+
+            _db.Departments.Remove(department);
             _db.SaveChanges();
             return RedirectToAction("Index");
+
+
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-        //public ActionResult Index()
-        //{
-        //    //Adoo.Net Approach
-        //    var sql = "SELECT * FROM Employees";
-        //    var employees = _db.Employees.FromSqlRaw(sql).ToList();
-        //    return View(employees);
-        //}
-
-
-        //public ActionResult Index()
-        //{
-
-
-        //    IList<Employee> employees = new List<Employee>
-        //    {
-        //        new Employee { Id = 1, Name = "Alice", Position = "Developer", Salary = 60000 },
-        //        new Employee { Id = 2, Name = "Bob", Position = "Manager", Salary = 80000 },
-        //        new Employee { Id = 3, Name = "Charlie", Position = "Tester", Salary = 50000 }
-        //    };
-
-        //    return View(employees);
-        //}
     }
-}  
+}
