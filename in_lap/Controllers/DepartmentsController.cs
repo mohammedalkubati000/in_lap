@@ -1,12 +1,13 @@
 ﻿using in_lap.Data;
 using in_lap.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace in_lap.Controllers
 {
+    [Authorize]
     public class DepartmentsController : Controller
     {
-
         //DI 
         private readonly AppDbContext _db;
         public DepartmentsController(AppDbContext db)
@@ -17,6 +18,7 @@ namespace in_lap.Controllers
 
         public ActionResult Index()
         {
+
             //Entity Framework Approach
             IEnumerable<Department> depts = _db.Departments.ToList();
             return View(depts);
@@ -98,6 +100,7 @@ namespace in_lap.Controllers
 
 
         }
+
 
 
     }

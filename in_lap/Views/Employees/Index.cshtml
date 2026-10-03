@@ -1,13 +1,14 @@
 ﻿@model IEnumerable<Employee>
-
+@{
+    ViewData["Title"] = " Employees page";
+}
 <div class="container">
 
-      <h1>Employees</h1>
+    <h1>Employees</h1>
 
     <div class="text-end">
-        <a asp-action="Create" class="btn btn-primary">New </a>
+        <a asp-action="Create" class="btn btn-primary"> New Department </a>
     </div>
-
     <table class="table table-striped">
         <thead>
             <tr>
@@ -15,7 +16,6 @@
                 <th>Name</th>
                 <th>Position</th>
                 <th>Salary</th>
-                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -27,11 +27,7 @@
                     <td>@emp.Name</td>
                     <td>@emp.Position</td>
                     <td>@emp.Salary</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-Id="@emp.Id" class="btn btn-warning"> Edit </a>
-                        <a asp-action="Delete" asp-route-Id="@emp.Id" class="btn btn-danger"> Delete </a>
-                    </td>
-                </tr>
+                </tr>   
 
             }
 

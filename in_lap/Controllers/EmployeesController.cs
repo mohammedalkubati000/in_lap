@@ -1,5 +1,6 @@
 ﻿using in_lap.Data;
 using in_lap.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace in_lap.Controllers
@@ -22,8 +23,11 @@ namespace in_lap.Controllers
         {
             //Entity Framework Approach
 
-            IEnumerable<Employee> employees = _db.Employees.ToList();
-            return View(employees);
+            IEnumerable<Employee> depts = _db.Employees.ToList();
+
+            return View(depts);
+
+           
         }
         [HttpGet]
         public ActionResult Create()
